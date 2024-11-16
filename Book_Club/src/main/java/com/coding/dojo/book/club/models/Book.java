@@ -1,6 +1,7 @@
 package com.coding.dojo.book.club.models;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -44,6 +47,10 @@ public class Book {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="borrower_id")
+    private User borrower;
 
 	public Book() {
 
@@ -104,6 +111,14 @@ public class Book {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public User getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(User borrower) {
+		this.borrower = borrower;
 	}
 
 	@PrePersist

@@ -38,19 +38,18 @@ public class BookService {
 			return null;
 		}
 	}
-	
-	// update a book
-		public Book updateBook(Book book) {
-			return bookRepo.save(book);
-		}
-		
-		//delete a book
-		public void deleteBook(Long id) {
-			Optional<Book> optionalBook = bookRepo.findById(id);
-			if(optionalBook.isPresent()) {
-				bookRepo.deleteById(id);
-			}
-		}
 
+	// update a book
+	public Book updateBook(Book book) {
+		return bookRepo.save(book);
+	}
+
+	// delete a book
+	public void deleteBook(Long id) {
+		Optional<Book> optionalBook = bookRepo.findById(id);
+		if (optionalBook.isPresent()) {
+			bookRepo.deleteById(id);
+		}
+	}
 
 }

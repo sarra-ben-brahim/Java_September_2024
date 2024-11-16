@@ -31,16 +31,58 @@
 				<th>ID</th>
 				<th>Title</th>
 				<th>Author Name</th>
-				<th>Posted By</th>
+				<th>Owner</th>
+				<th>Actions</th>
 			</tr>
 			<c:forEach var="book" items="${books}">
-			
+			<c:if test="${user.id != book.borrower.id }">
 				<tr>
 					<td><c:out value="${book.id}"/></td>
 					<td><a href="books/${book.id}"><c:out value="${book.title}"/></a></td>
 					<td><c:out value="${book.author}"/></td>
 					<td><c:out value="${book.user.userName}"/></td>
+					<c:if test="${user == book.user }">
+						<td><a href="/books/${book.id}/edit">edit</a> 
+							<form action="/book/${book.id}/delete" method="post">
+							<input type="hidden" name="_method" value="delete"> 
+							<a href="/books/${book.id}">delete</a></td>							
+							</form>						
+					</c:if>
+					<c:if test="${user != book.user }">
+						<td><a href="/books/${book.id}/borrow">borrow</a></td>
+					</c:if>
 				</tr>
+			</c:if>
+			
+				
+			</c:forEach>
+		
+		</table>
+		
+		<h3>Book I'm borrowing</h3>
+		
+		<table class="table">
+		
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Author Name</th>
+				<th>Owner</th>
+				<th>Actions</th>
+			</tr>
+			<c:forEach var="book" items="${books}">
+				<c:if test="${user.id == book.borrower.id }">
+					<tr>
+					<td><c:out value="${book.id}"/></td>
+					<td><a href="books/${book.id}"><c:out value="${book.title}"/></a></td>
+					<td><c:out value="${book.author}"/></td>
+					<td><c:out value="${book.user.userName}"/></td>
+					<c:if test="${user != book.user }">
+						<td><a href="/books/${book.id}/return">return</a></td>
+					</c:if>
+				</tr>
+				</c:if>
+				
 			</c:forEach>
 		
 		</table>

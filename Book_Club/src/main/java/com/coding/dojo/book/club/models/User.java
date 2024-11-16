@@ -9,6 +9,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -50,6 +53,9 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Book> books;
+	
+	@OneToMany(mappedBy = "borrower", fetch = FetchType.LAZY)
+	private List<Book> borrowedBooks;
 
 	public User() {
 	}
@@ -116,6 +122,15 @@ public class User {
 
 	public void setBooks(List<Book> books) {
 		this.books = books;
+	}
+	
+
+	public List<Book> getBorrowedBooks() {
+		return borrowedBooks;
+	}
+
+	public void setBorrowedBooks(List<Book> borrowedBooks) {
+		this.borrowedBooks = borrowedBooks;
 	}
 
 	@PrePersist
